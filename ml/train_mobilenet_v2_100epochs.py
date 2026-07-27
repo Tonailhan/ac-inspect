@@ -148,7 +148,7 @@ print("\nCalculating class weights for imbalanced data...")
 # Raise it (e.g. 1.5–2.0) to make each MISSED NG cost more during training,
 # pushing the model to output lower P(OK) on defects — a training-side lever
 # that improves NG detection WITHOUT changing the inference threshold.
-NG_WEIGHT_MULTIPLIER = 1.0
+NG_WEIGHT_MULTIPLIER = 1.5
 
 # Count labels in the TRAINING split only (val/test must not influence training)
 train_labels = file_labels[train_idx]
@@ -242,7 +242,7 @@ PHASE1_EPOCHS = 30  # Increased from 10 to give the head more time to converge
 print(f"\n{'='*60}")
 print(f"PHASE 1: Training classification head ({PHASE1_EPOCHS} epochs max)")
 print(f"Base model: FROZEN")
-print(f"EarlyStopping: patience=7")
+print(f"EarlyStopping: patience=10")
 print(f"{'='*60}")
 
 model.compile(
@@ -251,10 +251,10 @@ model.compile(
     metrics=['accuracy']
 )
 
-# Callbacks for Phase 1
+# Callbacks for Phase 1 (same small-val-set noise applies here)
 early_stop_p1 = tf.keras.callbacks.EarlyStopping(
     monitor='val_loss',
-    patience=7,
+    patience=10,       # Raised from 7 — don't quit on a noisy val_loss blip
     restore_best_weights=True,
     verbose=1
 )
@@ -262,7 +262,7 @@ early_stop_p1 = tf.keras.callbacks.EarlyStopping(
 reduce_lr_p1 = tf.keras.callbacks.ReduceLROnPlateau(
     monitor='val_loss',
     factor=0.5,       # Halve the learning rate
-    patience=3,        # After 3 epochs with no improvement
+    patience=4,        # Raised from 3 — keep below EarlyStopping's patience
     min_lr=1e-6,
     verbose=1
 )
@@ -287,8 +287,8 @@ PHASE2_EPOCHS = 100  # Increased from 15 — EarlyStopping will handle the rest
 print(f"\n{'='*60}")
 print(f"PHASE 2: Fine-tuning last 30 layers ({PHASE2_EPOCHS} epochs max)")
 print(f"Base model: PARTIALLY UNFROZEN")
-print(f"EarlyStopping: patience=10")
-print(f"ReduceLROnPlateau: patience=4, factor=0.5")
+print(f"EarlyStopping: patience=20")
+print(f"ReduceLROnPlateau: patience=6, factor=0.5")
 print(f"{'='*60}")
 
 # Unfreeze the last 30 layers of MobileNetV2
@@ -316,19 +316,26 @@ checkpoint = tf.keras.callbacks.ModelCheckpoint(
     verbose=1
 )
 
-# EarlyStopping with higher patience for fine-tuning (allow more exploration)
+# EarlyStopping for fine-tuning.
+# The honest validation split is small (~56 images), so val_loss is NOISY —
+# a couple of unlucky images can cause several "no improvement" epochs in a
+# row and stop training long before the model has converged. High patience
+# lets it ride out that noise; checkpointing means over-running costs only
+# Colab time, never model quality.
 early_stop_p2 = tf.keras.callbacks.EarlyStopping(
     monitor='val_loss',
-    patience=10,       # Increased from 5 — fine-tuning needs more patience
+    patience=20,       # Raised from 10 — small val set makes val_loss jumpy
     restore_best_weights=True,
     verbose=1
 )
 
-# Auto-reduce learning rate when loss plateaus
+# Auto-reduce learning rate when loss plateaus.
+# Patience must stay well below EarlyStopping's, so the LR gets a chance to
+# drop and escape a plateau before training is cut off.
 reduce_lr_p2 = tf.keras.callbacks.ReduceLROnPlateau(
     monitor='val_loss',
     factor=0.5,        # Halve the learning rate
-    patience=4,        # After 4 epochs with no improvement
+    patience=6,        # Raised from 4 — avoid collapsing the LR on noise
     min_lr=1e-7,       # Don't go below this
     verbose=1
 )

@@ -46,8 +46,11 @@ except ImportError:
 # Toggle between mock and real model
 USE_MOCK = False
 
-# Sigmoid threshold optimized on validation set (default 0.5 was too aggressive)
-CLASSIFICATION_THRESHOLD = 0.25
+# Sigmoid threshold chosen on the validation set under an NG-recall >= 95%
+# constraint (see ml/train_mobilenet_v2_100epochs.py).
+# MUST be re-derived whenever the model is retrained — each model has its own
+# probability scale, and a mismatched threshold silently breaks defect detection.
+CLASSIFICATION_THRESHOLD = 0.525
 
 # UI enforces a 10MB image limit; base64 adds ~33% overhead, so allow 14MB encoded
 MAX_IMAGE_B64_BYTES = 14 * 1024 * 1024
@@ -169,7 +172,9 @@ class ModelInfoResponse(BaseModel):
     input_shape: list = Field(..., example=[224, 224, 3])
     classes: list = Field(..., example=["OK", "NG"])
     training_date: str = Field(..., example="2024-04-01")
-    accuracy: float = Field(..., example=0.90)
+    accuracy: float = Field(..., description="Held-out test-set accuracy", example=0.90)
+    field_accuracy: float = Field(..., description="Agreement with expert judgement on real plant photos", example=0.56)
+    field_ng_recall: float = Field(..., description="Share of expert-confirmed defects detected in the field", example=0.38)
     classification_threshold: float = Field(..., example=0.50)
     cache_enabled: bool = Field(..., example=True)
     cache_size: int = Field(..., example=0)
@@ -192,8 +197,14 @@ def get_model_info_data():
         'model_description': 'MobileNetV2 transfer learning model for anode cover powder level inspection (class-weighted, threshold-optimized)',
         'input_shape': [224, 224, 3],
         'classes': ['OK', 'NG'],
-        'training_date': '2026-06-22',
-        'accuracy': 0.91,
+        'training_date': '2026-07-27',
+        # Held-out test accuracy from the training run. NOTE: independent
+        # expert validation on 34 real plant photos measured only ~56%
+        # agreement (37.5% NG recall) — see docs/expert-validation.md.
+        # Treat the field figure, not this one, as the operational number.
+        'accuracy': 0.817,
+        'field_accuracy': 0.559,
+        'field_ng_recall': 0.375,
         'classification_threshold': CLASSIFICATION_THRESHOLD,
         'cache_size': len(prediction_cache),
         'cache_limit': CACHE_LIMIT
@@ -416,6 +427,8 @@ async def model_info():
         "classes": model_info_data['classes'],
         "training_date": model_info_data['training_date'],
         "accuracy": model_info_data['accuracy'],
+        "field_accuracy": model_info_data['field_accuracy'],
+        "field_ng_recall": model_info_data['field_ng_recall'],
         "classification_threshold": model_info_data.get('classification_threshold', 0.5)
     }
     

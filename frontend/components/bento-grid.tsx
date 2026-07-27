@@ -153,14 +153,14 @@ export function BentoGrid() {
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">MobileNetV2 AI Brain</h3>
                 <p className="text-zinc-400 text-sm">
-                  Deep learning model analyzes visual patterns and calculates confidence scores in milliseconds to accurately detect 9 major NG defects.
+                  Deep learning model analyzes visual patterns and calculates confidence scores in milliseconds to screen for 9 major NG defect types. Results are advisory and require technician verification.
                 </p>
               </div>
               <SystemStatus />
             </div>
             <div className="grid grid-cols-4 gap-4">
               {[
-                { label: "Accuracy", value: "91%" },
+                { label: "Test Accuracy", value: "82%" },
                 { label: "Speed", value: "<1s" },
                 { label: "Defects", value: "9+" },
                 { label: "Local", value: "100%" },

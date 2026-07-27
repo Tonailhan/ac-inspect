@@ -73,15 +73,27 @@ Returns metadata about the active ML model loaded into memory, including its cla
   "model_description": "MobileNetV2 transfer learning model...",
   "input_shape": [224, 224, 3],
   "classes": ["OK", "NG"],
-  "training_date": "2026-06-22",
-  "accuracy": 0.91,
-  "classification_threshold": 0.25,
+  "training_date": "2026-07-27",
+  "accuracy": 0.817,
+  "field_accuracy": 0.559,
+  "field_ng_recall": 0.375,
+  "classification_threshold": 0.525,
   "cache_enabled": true,
   "cache_size": 0,
   "cache_limit": 1000,
   "lazy_loading": true
 }
 ```
+
+> **Reading the accuracy fields.** `accuracy` is held-out test-set accuracy from
+> the training run. `field_accuracy` and `field_ng_recall` come from the
+> independent expert validation study on real plant photographs
+> (see [expert-validation.md](expert-validation.md)) and are the figures that
+> reflect operational performance. Cite the field figures in reports and
+> presentations.
+>
+> `classification_threshold` is specific to the loaded model and must be
+> re-derived whenever the weights are replaced.
 
 ---
 

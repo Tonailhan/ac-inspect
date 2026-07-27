@@ -30,7 +30,7 @@
   - We use **MobileNetV2**, an AI originally designed by Google for mobile devices.
   - **Why?** It is incredibly fast and efficient. It doesn't require a million-dollar supercomputer to run.
   - The AI was trained on our historical photos to recognize the exact visual patterns of our 9 major NG defects (e.g., poor shaping, powder imbalances, drops, and fire leaks).
-- **Speaker Notes:** Break down the AI simply. Explain that we fed the AI hundreds of examples of our specific floor defects—like thick powder between high and low anodes, or poor compactness. It calculates a score from 0 to 100%, and if it detects those defect patterns, it flags it as NG.
+- **Speaker Notes:** Break down the AI simply. Explain that we fed the AI hundreds of examples of our specific floor defects—like thick powder between high and low anodes, or poor compactness. It calculates a score from 0 to 100%, and if it detects those defect patterns, it flags it as NG. **Describe here what the AI was *designed* to do — save how well it actually does it for Slide 6.** Avoid saying "accurate" or "reliable" on this slide; you will present the measured performance shortly, and the two must not contradict each other.
 
 ## Slide 5: The Workflow (Live Demo)
 - **Visual:** Screen recording of the app in action on a phone.
@@ -41,7 +41,17 @@
   - Result (OK/NG) is displayed instantly.
 - **Speaker Notes:** Highlight the image shrinking! This is a great technical detail that shows you thought about the reality of the plant floor—Wi-Fi isn't always perfect, so shrinking the image first makes the app feel extremely fast.
 
-## Slide 6: Security & Deployment
+## Slide 6: Does It Actually Work? (Expert Validation)
+- **Visual:** A photo of the signed expert judgement form, next to a simple bar chart comparing "Lab Test: 82%" against "Real Plant Photos: 56%".
+- **Bullet Points:**
+  - We tested the AI against **two qualified potline experts** on 34 real plant photos.
+  - Experts judged independently. The AI never saw their answers.
+  - **Agreement: 19 of 34 (56%).** Defects detected: **6 of 16 (38%).**
+  - Internal testing suggested 82% — real photos told a different story.
+  - Conclusion: a working **demonstrator**, not yet an inspection tool.
+- **Speaker Notes:** This is the most important slide in the deck — do not skip it or rush it. Presenting a limitation you discovered yourself is far stronger than having someone in the audience discover it for you. Explain the analogy plainly: testing the AI on photos from its own training collection is like examining a student using the exact questions they revised from — a high score doesn't prove understanding. The expert test was the real exam. Be ready to say clearly: "I would not recommend relying on this for inspection decisions today." That sentence builds more credibility than any accuracy figure. If asked why it underperforms, the honest answer is that the training photos may not have been labelled to the same standard the experts apply — and confirming that is the next step, not more data collection.
+
+## Slide 7: Security & Deployment
 - **Visual:** A padlock icon and a Wi-Fi symbol.
 - **Bullet Points:**
   - **100% Local:** Runs entirely on the plant's internal Wi-Fi.
@@ -49,13 +59,15 @@
   - **Zero-Config Startup:** Designed with automated scripts so anyone can turn the server on with one click.
 - **Speaker Notes:** Managers love hearing about security. Reassure them that our data is safe because this system operates internally. It's an "in-house" solution.
 
-## Slide 7: Next Steps & Future Expansion
-- **Visual:** Icons for a Database and a Drone.
+## Slide 8: Next Steps & Future Expansion
+- **Visual:** A simple roadmap: "Fix accuracy" → "Pilot" → "Expand".
 - **Bullet Points:**
-  - Connect the AI to our central database to track defect trends by shift.
-  - Use the exact same AI model on cameras mounted to cranes for continuous, automatic scanning.
-- **Speaker Notes:** Conclude by explaining that this app is just the starting point. Now that we have the AI model working locally, we can plug it into almost anything.
+  - **First:** confirm the training photos were labelled to the same standard the experts use — the most likely cause of the gap, and it costs nothing but time.
+  - **Then:** grow the expert-verified photo set and re-validate against expert judgement.
+  - **Later:** connect to the central database to track defect trends by shift.
+  - **Long term:** run the same model on crane-mounted cameras for continuous scanning.
+- **Speaker Notes:** Keep the ordering honest — the database and crane ideas are genuinely exciting, but they come after accuracy is solved. Framing it this way shows engineering judgement rather than over-promising. The infrastructure (capture, inference, display, deployment) is built and proven; what remains is teaching the model the right standard.
 
-## Slide 8: Q&A
+## Slide 9: Q&A
 - **Title:** Questions & Discussion
 - **Visual:** Press Metal Bintulu Logo or Project Logo.
