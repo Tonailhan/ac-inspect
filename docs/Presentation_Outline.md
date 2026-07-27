@@ -1,0 +1,61 @@
+# Presentation Outline: Anode Cover Inspector
+
+---
+
+## Slide 1: Title Slide
+- **Title:** Automating Quality Control: The AI Anode Cover Inspector
+- **Subtitle:** A Technical Overview of our New Machine Learning System
+- **Presenter:** [Your Name / Title]
+
+## Slide 2: The Core Problem
+- **Visual:** A photo comparing an ideal anode cover to one with a clear defect (like a fire leak or middle drop).
+- **Bullet Points:**
+  - Currently, cover quality (shaping, compactness, thickness) is judged entirely by human eyesight.
+  - This is subjective: What is "OK" to one person might have a minor defect another missed.
+  - We suffer from specific, recurring defects: Fire leaks, poor shaping, thick/less powder, and structural drops.
+  - These defects leak heat, wasting expensive electricity and degrading the anode via air burn.
+- **Speaker Notes:** Start by reminding everyone that a good cover is more than just powder thickness—it's about shaping, compactness, and sealing the pot. Point out that humans naturally have different standards, so we need a completely objective, digital way to catch things like fire leaks and middle drops.
+
+## Slide 3: The Tech Stack (How it's built)
+- **Visual:** A diagram showing three boxes: 1. Phone App (Next.js), 2. Server (Python FastAPI), 3. AI Brain (MobileNetV2).
+- **Bullet Points:**
+  - **The App (Frontend):** Built with Next.js. Operators use it on their phones via a simple web link—no app installation required.
+  - **The Server (Backend):** Built with Python FastAPI. It safely catches the photos sent from the phones and manages the heavy traffic.
+  - **The Brain (AI):** A Deep Learning model that analyzes the pixels and makes the final decision.
+- **Speaker Notes:** Explain that we didn't just build one massive, slow program. We separated the user interface from the "brain" so the system is lightning-fast and won't crash even if 50 operators use it at once.
+
+## Slide 4: Deep Dive into the AI (MobileNetV2)
+- **Visual:** A graphic showing a picture going into a neural network and coming out as an "OK / 95%" score.
+- **Bullet Points:**
+  - We use **MobileNetV2**, an AI originally designed by Google for mobile devices.
+  - **Why?** It is incredibly fast and efficient. It doesn't require a million-dollar supercomputer to run.
+  - The AI was trained on our historical photos to recognize the exact visual patterns of our 9 major NG defects (e.g., poor shaping, powder imbalances, drops, and fire leaks).
+- **Speaker Notes:** Break down the AI simply. Explain that we fed the AI hundreds of examples of our specific floor defects—like thick powder between high and low anodes, or poor compactness. It calculates a score from 0 to 100%, and if it detects those defect patterns, it flags it as NG.
+
+## Slide 5: The Workflow (Live Demo)
+- **Visual:** Screen recording of the app in action on a phone.
+- **Bullet Points:** 
+  - Operator takes a photo on their phone.
+  - The app shrinks the image file size instantly to save Wi-Fi bandwidth.
+  - The Python server processes the image in less than 1 second.
+  - Result (OK/NG) is displayed instantly.
+- **Speaker Notes:** Highlight the image shrinking! This is a great technical detail that shows you thought about the reality of the plant floor—Wi-Fi isn't always perfect, so shrinking the image first makes the app feel extremely fast.
+
+## Slide 6: Security & Deployment
+- **Visual:** A padlock icon and a Wi-Fi symbol.
+- **Bullet Points:**
+  - **100% Local:** Runs entirely on the plant's internal Wi-Fi.
+  - **Private:** Photos are never uploaded to the public internet or external cloud servers.
+  - **Zero-Config Startup:** Designed with automated scripts so anyone can turn the server on with one click.
+- **Speaker Notes:** Managers love hearing about security. Reassure them that our data is safe because this system operates internally. It's an "in-house" solution.
+
+## Slide 7: Next Steps & Future Expansion
+- **Visual:** Icons for a Database and a Drone.
+- **Bullet Points:**
+  - Connect the AI to our central database to track defect trends by shift.
+  - Use the exact same AI model on cameras mounted to cranes for continuous, automatic scanning.
+- **Speaker Notes:** Conclude by explaining that this app is just the starting point. Now that we have the AI model working locally, we can plug it into almost anything.
+
+## Slide 8: Q&A
+- **Title:** Questions & Discussion
+- **Visual:** Press Metal Bintulu Logo or Project Logo.

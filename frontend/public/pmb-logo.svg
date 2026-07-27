@@ -1,0 +1,8 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Red Part -->
+  <path d="M5.5 8.5L12 18L5.5 27.5L8.5 18L5.5 8.5Z" fill="#EE1C25"/>
+  <!-- Chevron 1 (Darker Gray) -->
+  <path d="M11 4H18L26 20L18 36H11L19 20L11 4Z" fill="#6D6E71"/>
+  <!-- Chevron 2 (Lighter Gray) -->
+  <path d="M21 4H28L36 20L28 36H21L29 20L21 4Z" fill="#939598"/>
+</svg>

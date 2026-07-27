@@ -1,0 +1,27 @@
+# dependencies
+/node_modules
+/venv
+venv312/
+*.pyc
+__pycache__
+
+# output
+/.next/
+/out/
+/build
+/dist
+
+# env
+.env*
+
+# debug
+*.log
+
+# mac/os
+.DS_Store
+
+# claude code local harness state (settings, worktrees)
+/.claude/
+
+# stray images
+*.jfif
