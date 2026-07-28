@@ -25,3 +25,6 @@ __pycache__
 
 # stray images
 *.jfif
+
+# scratch photo drop-off (originals; processed copies live in docs/figures/)
+/photos for claude/
