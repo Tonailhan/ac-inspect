@@ -18,15 +18,27 @@ ac-inspect/
 ├── frontend/         # Next.js frontend
 │   ├── app/          # Next.js app router pages
 │   └── components/   # React components
-├── ml/               # Model training scripts
+├── ml/               # Model training and evaluation
 │   ├── predict.py    # Standalone prediction script
+│   ├── train_mobilenet_v2_100epochs.py
 │   ├── src/          # Training & evaluation modules
 │   └── notebooks/    # Jupyter notebooks
 ├── weights/          # Model weight files
-│   └── anode_classifier_v1.h5
+│   └── anode_mobilenet_v2.keras
 ├── tests/            # Test suite
-└── scripts/          # Utility scripts
+└── docs/             # Architecture, API reference, validation study
 ```
+
+## Requirements
+
+| Requirement | Version | Note |
+|---|---|---|
+| Python | **3.10 – 3.12** | TensorFlow 2.16 does not support Python 3.13 or newer |
+| Node.js | LTS | `pnpm` is installed automatically if missing |
+
+> **Python version matters.** If `python --version` reports 3.13 or later, the
+> TensorFlow install will fail and the backend will start but return HTTP 503 on
+> every inspection. Install Python 3.12 and make sure it is the one on your PATH.
 
 ## Quick Start (Zero-Config)
 
@@ -51,7 +63,26 @@ We've provided automated startup scripts that handle all dependencies and enviro
    - **Windows**: Double-click `stop.bat`
 
 
-> **Note for developers**: You must have **Python 3.10+** and **Node.js (LTS)** installed on your machine. The scripts will install `pnpm` automatically if you don't have it.
+> **Note for developers**: You must have **Python 3.10–3.12** and **Node.js (LTS)**
+> installed on your machine. The scripts will install `pnpm` automatically if you
+> don't have it. First run downloads TensorFlow (~600 MB) and the Node packages,
+> so it needs an internet connection and several minutes; subsequent runs start
+> offline in seconds.
+
+### If inspections return an error
+
+The backend starts even when the model cannot be loaded, so that the failure is
+visible rather than silent. Check `http://localhost:5001/api/health`:
+
+- `"model_loaded": true` — the model is fine; the problem is elsewhere.
+- `"model_loaded": false` — TensorFlow or the weights file failed to load. The
+  usual cause is an unsupported Python version (see Requirements above). Re-run
+  the install manually to see the error that `start.bat` hides:
+
+  ```cmd
+  cd backend
+  venv312\Scripts\python.exe -m pip install -r requirements.txt
+  ```
 
 ## Usage
 

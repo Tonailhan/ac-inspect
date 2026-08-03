@@ -26,13 +26,39 @@ cd /d "%~dp0backend"
 if not exist "venv312\Scripts\python.exe" (
     echo  - Creating Python virtual environment...
     python -m venv venv312
-    echo  - Installing backend dependencies ^(this may take a minute^)...
+    echo  - Installing backend dependencies ^(downloads ~600MB, please wait^)...
     call venv312\Scripts\activate.bat
     python -m pip install --upgrade pip >nul
-    pip install -r requirements.txt >nul
+    pip install -r requirements.txt
+    if %errorlevel% neq 0 (
+        echo.
+        echo [ERROR] Dependency installation failed.
+        echo   The most common cause is an unsupported Python version.
+        echo   TensorFlow requires Python 3.10 to 3.12; yours is:
+        python --version
+        echo   Install Python 3.12, delete the backend\venv312 folder, and run this again.
+        echo.
+        call deactivate
+        pause
+        exit /b 1
+    )
     call deactivate
 ) else (
     echo  - Backend environment ready.
+)
+
+:: Confirm the ML stack is actually importable — a backend without TensorFlow
+:: starts normally but returns HTTP 503 for every inspection.
+venv312\Scripts\python.exe -c "import tensorflow, numpy" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo.
+    echo [ERROR] TensorFlow is not available in backend\venv312.
+    echo   Inspections would fail with HTTP 503.
+    echo   Fix: delete the backend\venv312 folder and run start.bat again
+    echo        using Python 3.10-3.12.
+    echo.
+    pause
+    exit /b 1
 )
 
 :: Check for Node.js
