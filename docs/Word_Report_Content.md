@@ -60,14 +60,25 @@ Building the system is only half the work. The more important question is
 whether the AI actually agrees with the people who do this job every day.
 
 ### How we tested it
-We collected **34 photographs** of anode covers taken under normal plant
-conditions. The AI judged each one first. Then **two qualified potline
-personnel** independently judged the same photographs and signed off on their
-assessment. The AI never saw their answers beforehand, and they never saw the
-AI's. The assessors' names and employee numbers are recorded on the signed
-validation form, retained internally.
+A set of **34 photographs** of anode covers — a deliberate mix of good and
+defective ones — was prepared by an R&D engineer, so we did not know in advance
+how many of each there were.
+
+We ran every photograph through the system one by one, from 001 to 034, writing
+down what the AI said for each. A qualified potline technician then went through
+our record sheet and marked, for each photograph, what the correct answer should
+be and whether the AI had got it right. Finally we went through all 34 together
+and discussed why each cover was good or defective. Both assessors signed the
+completed record sheet, which is retained internally.
 
 The experts' judgement was treated as the correct answer.
+
+**One honest caveat about the method.** The technician could see the AI's answer
+on the record sheet when giving their own. Ideally they would have judged each
+photograph first, without knowing what the AI said. Seeing the answer can make a
+person slightly more likely to agree with it — which means the real agreement
+could be a little *lower* than the numbers below, not higher. That does not
+change the conclusion; if anything it strengthens it.
 
 ### What we found
 
@@ -137,7 +148,7 @@ that.
    the training photographs with the same assessors would confirm or rule this out.
    This costs nothing but time and is the most valuable next step.
 2. **Expand the expert-verified collection.** The 34 photographs in this study are
-   the only images independently confirmed by qualified personnel. A larger
+   the only images checked by qualified personnel. A larger
    expert-verified set would improve both training and future testing.
 3. **Re-validate after any retraining.** Internal test scores have been shown to
    overstate real performance for this task. Any future version should be measured

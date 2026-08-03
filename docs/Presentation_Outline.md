@@ -45,11 +45,13 @@
 - **Visual:** A photo of the signed expert judgement form, next to a simple bar chart comparing "Lab Test: 82%" against "Real Plant Photos: 56%".
 - **Bullet Points:**
   - We tested the AI against **two qualified potline experts** on 34 real plant photos.
-  - Experts judged independently. The AI never saw their answers.
+  - Photo set prepared by an R&D engineer — we didn't know the mix in advance.
+  - Every photo run through the system, 001–034, results recorded, then reviewed and marked by the expert.
   - **Agreement: 19 of 34 (56%).** Defects detected: **6 of 16 (38%).**
   - Internal testing suggested 82% — real photos told a different story.
   - Conclusion: a working **demonstrator**, not yet an inspection tool.
 - **Speaker Notes:** This is the most important slide in the deck — do not skip it or rush it. Presenting a limitation you discovered yourself is far stronger than having someone in the audience discover it for you. Explain the analogy plainly: testing the AI on photos from its own training collection is like examining a student using the exact questions they revised from — a high score doesn't prove understanding. The expert test was the real exam. Be ready to say clearly: "I would not recommend relying on this for inspection decisions today." That sentence builds more credibility than any accuracy figure. If asked why it underperforms, the honest answer is that the training photos may not have been labelled to the same standard the experts apply — and confirming that is the next step, not more data collection.
+- **If asked whether the test was blind:** answer honestly — it was not. The expert could see the AI's answer when marking the sheet. Say what that means: it would make agreement look *better*, not worse, so the real figure could be lower than 56%. Volunteering this before you are asked is a strength; being caught out on it is not. Next time, have the expert judge each photo before the AI's answer is shown.
 
 ## Slide 7: Security & Deployment
 - **Visual:** A padlock icon and a Wi-Fi symbol.

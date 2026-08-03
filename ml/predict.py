@@ -13,6 +13,12 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
+# Must match CLASSIFICATION_THRESHOLD in backend/app.py. Each trained model has
+# its own probability scale, so this value is re-derived whenever the weights
+# are replaced — see ml/train_mobilenet_v2_100epochs.py. A mismatch between this
+# script and the API produces different verdicts for the same image, silently.
+CLASSIFICATION_THRESHOLD = 0.525
+
 # Load model — try .keras (new) first, then .h5 (legacy)
 weights_dir = os.path.join(os.path.dirname(__file__), '..', 'weights')
 model_candidates = [
@@ -56,8 +62,8 @@ def predict_image(image_path):
     raw_value = float(prediction[0][0])
     
     # Keras sorts class names alphabetically: NG=0, OK=1
-    # Sigmoid output > 0.5 = OK (class 1), < 0.5 = NG (class 0)
-    if raw_value > 0.5:
+    # Sigmoid output above the threshold = OK (class 1), otherwise NG (class 0)
+    if raw_value > CLASSIFICATION_THRESHOLD:
         class_label = 'OK'
         confidence = raw_value
     else:
@@ -84,4 +90,4 @@ if __name__ == '__main__':
     print(f"\nResult:     {label}")
     print(f"Confidence: {confidence:.1%}")
     print(f"Raw output: {raw:.4f}")
-    print(f"  (NG=0.0 ←── 0.5 ──→ 1.0=OK)")
+    print(f"  (NG=0.0 ←── {CLASSIFICATION_THRESHOLD} ──→ 1.0=OK)")

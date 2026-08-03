@@ -87,7 +87,7 @@ Returns metadata about the active ML model loaded into memory, including its cla
 
 > **Reading the accuracy fields.** `accuracy` is held-out test-set accuracy from
 > the training run. `field_accuracy` and `field_ng_recall` come from the
-> independent expert validation study on real plant photographs
+> expert validation study on real plant photographs
 > (see [expert-validation.md](expert-validation.md)) and are the figures that
 > reflect operational performance. Cite the field figures in reports and
 > presentations.

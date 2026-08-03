@@ -1,6 +1,18 @@
+# Web framework
 fastapi
 uvicorn
 pydantic
 python-multipart
+
+# Image handling
 Pillow
+
+# System metrics (/api/health, /api/metrics)
 psutil
+
+# Machine learning — required to load weights/anode_mobilenet_v2.keras.
+# Without these the backend still starts, but every inspection returns
+# HTTP 503 because the model cannot be loaded.
+# numpy must stay below 2.0 for TensorFlow 2.16 compatibility.
+tensorflow==2.16.1
+numpy==1.26.4

@@ -16,14 +16,31 @@ qualified expert look at the same photograph, how often do they agree?**
 
 ## 2. Methodology
 
-- **Sample:** 34 anode cover photographs (numbered 001–034), taken under normal
-  plant conditions.
-- **Model verdicts** were recorded first, without reference to any expert
-  opinion, to prevent anchoring.
-- **Expert verdicts** were provided independently by two qualified potline
-  personnel, who signed the record sheet.
-- **Ground truth** is taken to be the expert judgement.
+The assessment was carried out as a supervised review session with qualified
+potline personnel, in the following sequence:
+
+1. The completed system was demonstrated to the assessor.
+2. A set of **34 anode cover photographs** (numbered 001–034), deliberately mixed
+   between defective and acceptable covers, was supplied by an R&D engineer. The
+   set was not selected by the author and its composition was not known in
+   advance.
+3. Each photograph was submitted to the system in sequence and the resulting
+   verdict and confidence value were recorded on the record sheet as produced.
+4. The assessor then reviewed the completed record sheet and, for each
+   photograph, entered their own judgement and marked whether the system's
+   verdict was correct.
+5. All 34 photographs were reviewed together, discussing for each why the cover
+   was considered acceptable or defective.
+6. The record sheet was signed by both assessors.
+
+- **Ground truth** is taken to be the expert judgement recorded in step 4.
 - Agreement was scored per photograph as a binary match.
+
+> **Important limitation — the assessment was not blind.** The assessor recorded
+> their judgement while the system's verdict was already visible on the record
+> sheet. This risks anchoring, which would tend to *inflate* measured agreement.
+> The figures below should therefore be read as an **upper bound**: true
+> agreement with unprompted expert judgement may be lower. See Section 4.5.
 
 The signed record sheet is retained as the primary evidence for this study.
 
@@ -116,6 +133,24 @@ Distinguishing between these would require visual comparison of misclassified
 cases against training examples. This was not carried out within the scope of
 this study.
 
+### 4.5 Effect of the non-blind assessment
+
+Because the assessor could see the system's verdict when recording their own
+judgement (Section 2), the possibility of anchoring cannot be excluded. Its
+direction matters:
+
+- Anchoring makes the assessor **more** likely to agree with the system.
+- Measured agreement is therefore **at or above** the agreement a blind
+  assessment would produce.
+
+Consequently the headline figures — 55.9% agreement and 37.5% defect detection —
+represent an **upper bound**. The central conclusion, that field performance
+falls far below held-out test performance, is not weakened by this limitation; a
+blind protocol would be expected to widen the gap rather than close it.
+
+Future validation should adopt a blind protocol in which the assessor judges each
+photograph before any model output is shown.
+
 ## 5. Conclusions
 
 1. The system is **not suitable for unsupervised deployment** as a safety or
@@ -136,7 +171,7 @@ this study.
    assigned using the same standard the experts apply. This is the single
    highest-value diagnostic and requires no new photography.
 2. **Expand the expert-validated set.** The 34 photographs used here are the
-   only independently verified data available. A larger expert-labelled set
+   only expert-verified data available. A larger expert-labelled set
    would both improve training and support more reliable evaluation.
 3. **Re-validate after any retraining.** Held-out test accuracy has been shown
    to overstate field performance for this problem; the expert-judged set should
