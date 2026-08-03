@@ -78,7 +78,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                 "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
                 "font-src 'self' https://fonts.gstatic.com; "
                 "img-src 'self' data: https:; "
-                "connect-src 'self' http://localhost:3000 http://localhost:5001 http://10.20.112.240:3000 http://10.20.112.240:5001"
+                "connect-src 'self' http://localhost:3000 http://localhost:5001"
             )
             response.headers["Content-Security-Policy"] = csp
         
@@ -175,11 +175,11 @@ class ModelInfoResponse(BaseModel):
     accuracy: float = Field(..., description="Held-out test-set accuracy", example=0.90)
     field_accuracy: float = Field(..., description="Agreement with expert judgement on real plant photos", example=0.56)
     field_ng_recall: float = Field(..., description="Share of expert-confirmed defects detected in the field", example=0.38)
-    classification_threshold: float = Field(..., example=0.50)
+    classification_threshold: float = Field(..., example=0.525)
     cache_enabled: bool = Field(..., example=True)
     cache_size: int = Field(..., example=0)
     cache_limit: int = Field(..., example=1000)
-    lazy_loading: bool = Field(..., example=True)
+    lazy_loading: bool = Field(..., description="False: the model is loaded eagerly at startup", example=False)
 
 # Global variables
 model = None
@@ -436,7 +436,8 @@ async def model_info():
     info['cache_enabled'] = True
     info['cache_size'] = model_info_data['cache_size']
     info['cache_limit'] = model_info_data['cache_limit']
-    info['lazy_loading'] = True
+    # The model is loaded eagerly at startup (see startup_event), not lazily
+    info['lazy_loading'] = False
     
     return ModelInfoResponse(**info)
 

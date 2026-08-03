@@ -15,7 +15,7 @@ echo.
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo [ERROR] Python is not installed or not in PATH.
-    echo Please install Python 3.10+ from python.org and ensure "Add Python to PATH" is checked.
+    echo Please install Python 3.10-3.12 from python.org and ensure "Add Python to PATH" is checked.
     pause
     exit /b 1
 )
@@ -30,7 +30,9 @@ if not exist "venv312\Scripts\python.exe" (
     call venv312\Scripts\activate.bat
     python -m pip install --upgrade pip >nul
     pip install -r requirements.txt
-    if %errorlevel% neq 0 (
+    rem NOTE: inside a parenthesised block %errorlevel% expands at parse time,
+    rem so it must be tested with "if errorlevel 1" to read the live value.
+    if errorlevel 1 (
         echo.
         echo [ERROR] Dependency installation failed.
         echo   The most common cause is an unsupported Python version.
@@ -93,8 +95,8 @@ echo [3/4] Starting backend (FastAPI on port 5001)...
 cd /d "%~dp0backend"
 start "AC Inspect Backend" /min cmd /c "venv312\Scripts\python.exe app.py"
 
-echo  - Waiting for backend to initialize...
-ping -n 5 127.0.0.1 >nul
+echo  - Waiting for backend to initialize ^(TensorFlow model takes ~10s to load^)...
+ping -n 13 127.0.0.1 >nul
 
 :: Start Frontend
 echo [4/4] Starting frontend (Next.js on port 3000)...

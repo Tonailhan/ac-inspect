@@ -33,8 +33,8 @@ Inspect an uploaded anode cover image.
   "status": "OK",
   "confidence": 0.92,
   "processing_time_ms": 150.5,
-  "timestamp": "2025-01-13T12:00:00",
-  "model_version": "real-1.1.0"
+  "timestamp": "2026-07-27T12:00:00",
+  "model_version": "3.0.0"
 }
 ```
 
@@ -45,11 +45,15 @@ Get model information.
 ```json
 {
   "status": "success",
-  "model_name": "standard_inspection_model",
-  "model_version": "1.1.0",
-  "model_description": "Anode cover inspection model",
+  "model_name": "anode_cover_mobilenetv2",
+  "model_version": "3.0.0",
+  "model_description": "MobileNetV2 transfer learning model...",
   "classes": ["OK", "NG"],
-  "input_shape": [224, 224, 3]
+  "input_shape": [224, 224, 3],
+  "accuracy": 0.817,
+  "field_accuracy": 0.559,
+  "field_ng_recall": 0.375,
+  "classification_threshold": 0.525
 }
 ```
 
@@ -103,8 +107,7 @@ uvicorn app:app --host 0.0.0.0 --port $PORT --workers 4
 ### Environment Variables
 
 - `PORT`: Server port (default: 5001)
-- `CORS_ORIGINS`: Comma-separated list of allowed origins (default: *)
-- `FASTAPI_DEBUG`: Enable debug mode (default: False)
+- `FASTAPI_DEBUG`: Enable auto-reload debug mode (default: False)
 
 ## Features
 
@@ -140,5 +143,5 @@ All errors follow the standard format:
 - **FastAPI**: Modern web framework
 - **Uvicorn**: ASGI server
 - **Pydantic**: Data validation
-- **OpenCV**: Computer vision
+- **TensorFlow / Keras**: Model inference (MobileNetV2)
 - **Pillow**: Image processing

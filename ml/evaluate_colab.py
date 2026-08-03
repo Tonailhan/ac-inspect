@@ -7,6 +7,9 @@ It will load your saved model and print the honest metrics.
 
 # Mount Google Drive
 from google.colab import drive
+
+# Must match CLASSIFICATION_THRESHOLD in backend/app.py
+CLASSIFICATION_THRESHOLD = 0.525
 drive.mount('/content/drive')
 
 import numpy as np
@@ -62,7 +65,7 @@ all_labels = []
 
 for images, labels in test_ds:
     preds = model.predict(images, verbose=0)
-    all_preds.extend((preds.flatten() > 0.5).astype(int))
+    all_preds.extend((preds.flatten() > CLASSIFICATION_THRESHOLD).astype(int))
     all_labels.extend(labels.numpy().flatten().astype(int))
 
 all_preds = np.array(all_preds)

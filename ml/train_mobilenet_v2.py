@@ -1,3 +1,26 @@
+"""DEPRECATED — DO NOT USE FOR TRAINING.
+
+This script partitions the data with take()/skip() on a shuffled tf.data
+dataset. Because such datasets re-shuffle on every epoch, validation images
+leak into training, which invalidates early stopping, checkpoint selection
+and every reported metric. The defect and its correction are documented in
+the project report (Methodology, "Data Partitioning").
+
+Use ml/train_mobilenet_v2_100epochs.py instead — it partitions the file list
+once, stratified by class, before any pipeline is built.
+
+Kept only as a historical record of the original procedure.
+"""
+import os
+import sys
+
+if os.environ.get('I_UNDERSTAND_THIS_SCRIPT_IS_BROKEN') != '1':
+    sys.exit(
+        "\nREFUSING TO RUN: this script has a train/validation leakage defect "
+        "and produces invalid metrics.\nUse ml/train_mobilenet_v2_100epochs.py "
+        "instead.\n(Set I_UNDERSTAND_THIS_SCRIPT_IS_BROKEN=1 to run it anyway.)"
+    )
+
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from google.colab import drive

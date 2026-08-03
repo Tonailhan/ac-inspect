@@ -81,7 +81,7 @@ Returns metadata about the active ML model loaded into memory, including its cla
   "cache_enabled": true,
   "cache_size": 0,
   "cache_limit": 1000,
-  "lazy_loading": true
+  "lazy_loading": false
 }
 ```
 

@@ -70,7 +70,7 @@ test.describe('Anode Cover Inspector API End-to-End Tests', () => {
     expect(data).toHaveProperty('model_name', 'standard_inspection_model');
     expect(data).toHaveProperty('classes');
     expect(data).toHaveProperty('cache_enabled', true);
-    expect(data).toHaveProperty('lazy_loading', true);
+    expect(data).toHaveProperty('lazy_loading', false);
   });
 
   test('should handle image upload prediction', async ({ page }) => {

@@ -103,9 +103,13 @@ visible rather than silent. Check `http://localhost:5001/api/health`:
 You can easily access this tool from any smartphone or tablet on the same Wi-Fi network:
 
 1. Connect your phone to the **exact same Wi-Fi network or Hotspot** as the PC running this application.
-2. Find the PC's IPv4 address (e.g., `192.168.1.50` or `172.20.10.2`).
-3. On your phone's browser, type the address followed by `:3000` (e.g., `http://192.168.1.50:3000`).
-4. Save it as a bookmark for instant access on the floor!
+2. Find the PC's IPv4 address (run `ipconfig`; e.g., `192.168.1.50` or `172.20.10.2`).
+3. Add that address to `allowedDevOrigins` in `frontend/next.config.mjs`
+   (e.g., `'http://192.168.1.50:3000',`) and restart the frontend. Without this,
+   the dev server blocks asset requests from other devices and the page will not
+   render properly on the phone.
+4. On your phone's browser, type the address followed by `:3000` (e.g., `http://192.168.1.50:3000`).
+5. Save it as a bookmark for instant access on the floor!
 
 ## Deployment
 

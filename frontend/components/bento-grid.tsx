@@ -49,13 +49,13 @@ function SystemStatus() {
   )
 }
 
-function CompressionBadge() {
-  const [compressed, setCompressed] = useState(false)
+function AnalysisBadge() {
+  const [analysed, setAnalysed] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCompressed(true)
-      setTimeout(() => setCompressed(false), 1500)
+      setAnalysed(true)
+      setTimeout(() => setAnalysed(false), 1500)
     }, 3000)
     return () => clearInterval(interval)
   }, [])
@@ -63,13 +63,13 @@ function CompressionBadge() {
   return (
     <div className="flex items-center gap-2 mt-4">
       <div className="px-2 py-1 text-xs bg-zinc-800 border border-zinc-700 rounded text-zinc-400 font-mono">
-        {compressed ? "120 KB" : "4.5 MB"}
+        {analysed ? "OK / NG" : "photo.jpg"}
       </div>
       <motion.div
-        animate={compressed ? { x: 5, opacity: 1 } : { x: 0, opacity: 0.5 }}
+        animate={analysed ? { x: 5, opacity: 1 } : { x: 0, opacity: 0.5 }}
         className="text-emerald-500 text-xs"
       >
-        {compressed ? "✓ Compressed" : "Processing..."}
+        {analysed ? "✓ Analysed" : "Uploading..."}
       </motion.div>
     </div>
   )
@@ -182,8 +182,8 @@ export function BentoGrid() {
               <Smartphone className="w-5 h-5 text-zinc-400" strokeWidth={1.5} />
             </div>
             <h3 className="text-lg font-semibold text-white mb-2">Lightweight Web App</h3>
-            <p className="text-zinc-400 text-sm mb-6">No app installation. Automatically shrinks image size to save plant Wi-Fi bandwidth.</p>
-            <CompressionBadge />
+            <p className="text-zinc-400 text-sm mb-6">No app installation. Opens in the browser on any phone connected to the plant Wi-Fi.</p>
+            <AnalysisBadge />
           </motion.div>
 
           {/* Analytics */}

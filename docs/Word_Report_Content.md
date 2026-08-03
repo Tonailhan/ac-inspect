@@ -43,7 +43,7 @@ We built a modern web application separated into three distinct parts. This sepa
 
 ### Part A: The User Interface (Frontend)
 - **Technology used:** Next.js and React.
-- **What it does:** This is the website the operator sees on their phone or tablet. It is designed to be lightweight. When an operator takes a photo, the app automatically shrinks the image size before sending it. This ensures the app works perfectly even if the plant Wi-Fi is slow.
+- **What it does:** This is the website the operator sees on their phone or tablet. It is designed to be lightweight: no app installation, just a browser link, and the page itself loads quickly even on plant Wi-Fi.
 
 ### Part B: The Traffic Controller (Backend)
 - **Technology used:** Python and FastAPI.

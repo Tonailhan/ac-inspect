@@ -36,10 +36,10 @@
 - **Visual:** Screen recording of the app in action on a phone.
 - **Bullet Points:** 
   - Operator takes a photo on their phone.
-  - The app shrinks the image file size instantly to save Wi-Fi bandwidth.
+  - Photo upload and result display all happen in the browser — nothing to install.
   - The Python server processes the image in less than 1 second.
   - Result (OK/NG) is displayed instantly.
-- **Speaker Notes:** Highlight the image shrinking! This is a great technical detail that shows you thought about the reality of the plant floor—Wi-Fi isn't always perfect, so shrinking the image first makes the app feel extremely fast.
+- **Speaker Notes:** Emphasise that operators need nothing installed — any phone on the plant Wi-Fi can open the tool from a bookmark, which is what makes floor adoption realistic.
 
 ## Slide 6: Does It Actually Work? (Expert Validation)
 - **Visual:** A photo of the signed expert judgement form, next to a simple bar chart comparing "Lab Test: 82%" against "Real Plant Photos: 56%".

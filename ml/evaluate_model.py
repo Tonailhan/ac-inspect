@@ -24,6 +24,9 @@ Example:
 import os
 import sys
 import numpy as np
+
+# Must match CLASSIFICATION_THRESHOLD in backend/app.py
+CLASSIFICATION_THRESHOLD = 0.525
 from pathlib import Path
 
 # Suppress TF warnings
@@ -60,8 +63,9 @@ def predict_single(model, image_path):
     
     raw_value = float(model.predict(img_array, verbose=0)[0][0])
     
-    # NG=0, OK=1 (alphabetical). Sigmoid > 0.5 = OK
-    if raw_value > 0.5:
+    # NG=0, OK=1 (alphabetical). Sigmoid above the threshold = OK.
+    # Must match CLASSIFICATION_THRESHOLD in backend/app.py (re-derived per model).
+    if raw_value > CLASSIFICATION_THRESHOLD:
         return 1, raw_value, raw_value       # OK
     else:
         return 0, 1 - raw_value, raw_value   # NG
