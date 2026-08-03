@@ -24,7 +24,7 @@ graph TD
     
     subgraph "Backend Layer (Port 5001)"
         FastAPI["🐍 FastAPI Server<br/>(Uvicorn)"]:::backend
-        Preprocessor["🖼️ Image Preprocessor<br/>(OpenCV/Pillow)"]:::backend
+        Preprocessor["🖼️ Image Preprocessor<br/>(Pillow)"]:::backend
         Model["🧠 ML Model<br/>(MobileNetV2 / Keras)"]:::ml
     end
 

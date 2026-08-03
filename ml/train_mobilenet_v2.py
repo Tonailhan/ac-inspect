@@ -24,7 +24,6 @@ if os.environ.get('I_UNDERSTAND_THIS_SCRIPT_IS_BROKEN') != '1':
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from google.colab import drive
-import os
 import numpy as np
 import matplotlib.pyplot as plt
 

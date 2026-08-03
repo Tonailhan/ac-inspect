@@ -129,7 +129,7 @@ The project is designed to run locally on a workstation or a dedicated plant ser
 ### Backend Stack
 - **Framework**: FastAPI
 - **ASGI Server**: Uvicorn
-- **Image Processing**: OpenCV, Pillow, NumPy
+- **Image Processing**: Pillow, NumPy
 - **Validation**: Pydantic
 - **Machine Learning**: TensorFlow / Keras (MobileNetV2)
 - **API Documentation**: Automatic OpenAPI docs available at `/api/docs`
