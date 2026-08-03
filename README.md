@@ -44,11 +44,16 @@ ac-inspect/
 
 We've provided automated startup scripts that handle all dependencies and environment setup automatically. You do not need to configure anything manually!
 
-1. **Clone the Repository**:
+1. **Get the code** — either clone the repository:
    ```bash
    git clone https://github.com/Tonailhan/ac-inspect.git
    cd ac-inspect
    ```
+   …or unzip the project folder if it was sent to you directly.
+
+   > If you are **sending** this project as a zip, exclude `backend/venv312/` and
+   > `frontend/node_modules/`. They are machine-specific and add gigabytes;
+   > `start.bat` recreates both on first run.
 
 2. **Run the Project**:
    - **Windows**: Double-click `start.bat` or run it in the terminal:
@@ -76,8 +81,10 @@ visible rather than silent. Check `http://localhost:5001/api/health`:
 
 - `"model_loaded": true` — the model is fine; the problem is elsewhere.
 - `"model_loaded": false` — TensorFlow or the weights file failed to load. The
-  usual cause is an unsupported Python version (see Requirements above). Re-run
-  the install manually to see the error that `start.bat` hides:
+  usual cause is an unsupported Python version (see Requirements above). If the
+  environment was created by an older version of `start.bat`, delete
+  `backend\venv312` and run it again; otherwise re-run the install by hand to
+  see the full error:
 
   ```cmd
   cd backend
