@@ -36,7 +36,7 @@ test.describe('Anode Cover Inspector API End-to-End Tests', () => {
     expect(data).toHaveProperty('status', 'healthy');
     expect(data).toHaveProperty('model_loaded');
     expect(data).toHaveProperty('timestamp');
-    expect(data).toHaveProperty('version', '1.0.0');
+    expect(data).toHaveProperty('version', '1.1.0');
     expect(data).toHaveProperty('uptime_seconds');
     expect(data).toHaveProperty('memory_usage_mb');
     expect(data).toHaveProperty('cpu_percent');
@@ -50,15 +50,16 @@ test.describe('Anode Cover Inspector API End-to-End Tests', () => {
     const data = await response.json();
     expect(data).toHaveProperty('status', 'success');
     expect(data).toHaveProperty('system');
-    expect(data).toHaveProperty('application');
+    expect(data).toHaveProperty('process');
+    expect(data).toHaveProperty('api');
     
-    expect(data.system).toHaveProperty('uptime_seconds');
-    expect(data.system).toHaveProperty('memory_usage_mb');
     expect(data.system).toHaveProperty('cpu_percent');
+    expect(data.system).toHaveProperty('memory_percent');
+    expect(data.system).toHaveProperty('disk_usage');
     
-    expect(data.application).toHaveProperty('model_loaded');
-    expect(data.application).toHaveProperty('cache_size');
-    expect(data.application).toHaveProperty('version');
+    expect(data.process).toHaveProperty('memory_mb');
+    expect(data.api).toHaveProperty('model_loaded');
+    expect(data.api).toHaveProperty('cache_size');
   });
 
   test('should handle API info endpoint', async ({ page }) => {
@@ -67,7 +68,7 @@ test.describe('Anode Cover Inspector API End-to-End Tests', () => {
     expect(response.status()).toBe(200);
     
     const data = await response.json();
-    expect(data).toHaveProperty('model_name', 'standard_inspection_model');
+    expect(data).toHaveProperty('model_name', 'anode_cover_mobilenetv2');
     expect(data).toHaveProperty('classes');
     expect(data).toHaveProperty('cache_enabled', true);
     expect(data).toHaveProperty('lazy_loading', false);

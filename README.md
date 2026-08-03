@@ -141,7 +141,7 @@ The project is designed to run locally on a workstation or a dedicated plant ser
 
 ### System Design
 - **Architecture**: REST API with separate frontend/backend
-- **Security**: CORS, HTTPS, input validation, security headers
+- **Security**: CORS, input validation, security headers; HTTP within the plant LAN only
 
 **IMPORTANT**: This tool is for operational guidance only. AI-detected defects must be physically verified by a qualified technician or potline supervisor. Always follow Press Metal Bintulu Standard Operating Procedures (SOP) for maintenance tasks.
 
